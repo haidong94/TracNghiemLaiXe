@@ -96,7 +96,7 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.custom_cyclerview,parent,false);
+        View itemView =inflater.inflate(R.layout.custom_question_cyclerview,parent,false);
         return new RecyclerViewHolder(itemView);
     }
 
