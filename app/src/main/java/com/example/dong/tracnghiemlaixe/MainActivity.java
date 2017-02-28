@@ -35,10 +35,18 @@ public class MainActivity extends AppCompatActivity {
         trBook= (TableRow) findViewById(R.id.trBook);
         trTest= (TableRow) findViewById(R.id.trTest);
         trGuide= (TableRow) findViewById(R.id.trGuide);
+
         trBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,BookActivity.class);
+                startActivity(intent);
+            }
+        });
+        trTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,ExamActivity.class);
                 startActivity(intent);
             }
         });

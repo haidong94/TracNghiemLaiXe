@@ -19,10 +19,21 @@
             </intent-filter>
         </activity>
 
-       <activity android:name=".BookActivity"
-           >
-
+       <activity
+           android:name=".BookActivity"
+           android:label="Book">
        </activity>
+
+        <activity
+            android:name=".ExamActivity"
+            android:label="Exam">
+        </activity>
+
+        <activity
+            android:name=".TestActivity"
+            android:label="Test">
+        </activity>
+
     </application>
 
 </manifest>

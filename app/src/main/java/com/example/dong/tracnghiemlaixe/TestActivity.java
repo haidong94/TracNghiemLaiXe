@@ -1,6 +1,7 @@
 package com.example.dong.tracnghiemlaixe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,10 +23,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
- * Created by DONG on 24-Feb-17.
+ * Created by DONG on 28-Feb-17.
  */
 
-public class BookActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerQuestionAdapter adapter;
     private LinearLayoutManager lLayout;
@@ -42,6 +43,9 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        Intent intent=getIntent();
+        int id=intent.getIntExtra("exam",10);
+
         mDBHelper=new DatabaseHelper(this);
 
         File database=getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
@@ -54,7 +58,7 @@ public class BookActivity extends AppCompatActivity {
             else
                 Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
         }
-        listItem= mDBHelper.getListItems();
+        listItem= mDBHelper.getListItemsTest(id);
         adapter=new RecyclerQuestionAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
 

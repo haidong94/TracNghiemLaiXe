@@ -65,4 +65,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return itemsList;
     }
+
+    public ArrayList<Items> getListItemsTest(int a){
+        Items items=null;
+        ArrayList<Items> itemsList=new ArrayList<>();
+        openDatabase();
+        Cursor cursor=mDatabase.rawQuery("SELECT *FROM ITEMS WHERE _ID like '%"+String.valueOf(a)+"%'",null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()&&itemsList.size()<20)
+        {
+            items=new Items(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)
+                    ,cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getInt(7));
+            itemsList.add(items);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return itemsList;
+    }
 }

@@ -56,10 +56,10 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
 
         @Override
         public void onClick(View v) {
-            ckbOption1.setChecked(false);
-            ckbOption2.setChecked(false);
-            ckbOption3.setChecked(false);
-            ckbOption4.setChecked(false);
+//            ckbOption1.setChecked(false);
+//            ckbOption2.setChecked(false);
+//            ckbOption3.setChecked(false);
+//            ckbOption4.setChecked(false);
 
             int id = Resources.getSystem().getIdentifier("btn_check_holo_light", "drawable", "android");
             for (int i=0;i<itemsList.get(getPosition()).getAnswer().length();i++)
@@ -96,13 +96,13 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View itemView =inflater.inflate(R.layout.custom_question_cyclerview,parent,false);
+        View itemView =inflater.inflate(R.layout.custom_question_layout,parent,false);
         return new RecyclerViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.txtQuestion.setText("  \u25BA Câu "+itemsList.get(position).getId()+": "+itemsList.get(position).getQuestion());
+        holder.txtQuestion.setText("  \u25BA Câu "+itemsList.indexOf(itemsList.get(position+1))+": "+itemsList.get(position).getQuestion());
         holder.ckbOption1.setText(""+itemsList.get(position).getOption1());
         holder.ckbOption2.setText(""+itemsList.get(position).getOption2());
 //        holder.ckbOption1.refreshDrawableState();
