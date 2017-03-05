@@ -10,6 +10,7 @@
         android:id="@+id/btnExam"
         android:layout_margin="15dp"
         android:background="@drawable/custom_button"
-        android:text="Đề 1"/>
+        android:text="Đề 1"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>

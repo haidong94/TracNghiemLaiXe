@@ -2,12 +2,15 @@ package com.example.dong.tracnghiemlaixe;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dong.tracnghiemlaixe.adapter.RecyclerQuestionAdapter;
@@ -31,11 +34,15 @@ public class BookActivity extends AppCompatActivity {
     private LinearLayoutManager lLayout;
     private DatabaseHelper mDBHelper;
     public ArrayList<Items> listItem=null;
+    private Toolbar toolbar;
+    private Button btnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_recycler_layout);
+
+
 
         addControl();
         addEvents();
@@ -83,6 +90,17 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void addControl() {
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar=getSupportActionBar();
+        //actionBar.show();
+        actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
+        //actionBar.setIcon(R.drawable.book1);
+
+        btnSubmit= (Button) findViewById(R.id.btnSubmit);
+        btnSubmit.setVisibility(View.INVISIBLE);
+
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         lLayout=new LinearLayoutManager(this);
@@ -111,4 +129,30 @@ public class BookActivity extends AppCompatActivity {
             return false;
         }
     }
+
+//
+//    //inflate menu
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    // Bắt sự kiện cho các item Menu
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        switch (item.getItemId()) {
+//            case R.id.mnSetting:
+//                Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.mnNotification:
+//                Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
+//                break;
+//            case android.R.id.home:
+//                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemsList;
     }
 
-    public ArrayList<Items> getListItemsTest(int a){
+    public ArrayList<Items> getList20Items(int a){
         Items items=null;
         ArrayList<Items> itemsList=new ArrayList<>();
         openDatabase();

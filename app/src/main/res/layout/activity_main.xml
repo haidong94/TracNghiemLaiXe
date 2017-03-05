@@ -64,14 +64,14 @@
                 android:layout_width="match_parent">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/book"/>
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/book1"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Ôn thi"
+                    android:text="  Ôn thi"
                     android:gravity="left|center"/>
 
             </TableRow>
@@ -83,14 +83,14 @@
                 android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/test"/>
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/test1"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Làm bài thi"
+                    android:text="  Làm bài thi"
                     android:gravity="left|center"/>
 
             </TableRow>
@@ -102,14 +102,14 @@
                 android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/guide"/>
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/guide1"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Hướng dẫn thi thực hành"
+                    android:text="  Hướng dẫn thi thực hành"
                     android:gravity="left|center"/>
             </TableRow>
         </TableLayout>

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,BookActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_from_left);
             }
         });
         trTest.setOnClickListener(new View.OnClickListener() {

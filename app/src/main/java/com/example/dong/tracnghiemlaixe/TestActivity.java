@@ -3,10 +3,12 @@ package com.example.dong.tracnghiemlaixe;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -32,11 +34,13 @@ public class TestActivity extends AppCompatActivity {
     private LinearLayoutManager lLayout;
     private DatabaseHelper mDBHelper;
     public ArrayList<Items> listItem=null;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_recycler_layout);
+
 
         addControl();
         addEvents();
@@ -58,7 +62,7 @@ public class TestActivity extends AppCompatActivity {
             else
                 Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
         }
-        listItem= mDBHelper.getListItemsTest(id);
+        listItem= mDBHelper.getList20Items(id);
         adapter=new RecyclerQuestionAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
 
@@ -87,9 +91,18 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void addControl() {
+
+        toolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar=getSupportActionBar();
+        //actionBar.show();
+        actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
+
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         lLayout=new LinearLayoutManager(this);
+
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
 
