@@ -11,9 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.dong.tracnghiemlaixe.adapter.RecyclerQuestionAdapter;
+import com.example.dong.tracnghiemlaixe.adapter.RecyclerTestAdapter;
 import com.example.dong.tracnghiemlaixe.database.DatabaseHelper;
 import com.example.dong.tracnghiemlaixe.model.Items;
 
@@ -30,11 +31,12 @@ import java.util.ArrayList;
 
 public class TestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerQuestionAdapter adapter;
+    private RecyclerTestAdapter adapter;
     private LinearLayoutManager lLayout;
     private DatabaseHelper mDBHelper;
     public ArrayList<Items> listItem=null;
     Toolbar toolbar;
+    Button btnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         int id=intent.getIntExtra("exam",10);
 
         mDBHelper=new DatabaseHelper(this);
@@ -63,7 +65,7 @@ public class TestActivity extends AppCompatActivity {
                 Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
         }
         listItem= mDBHelper.getList20Items(id);
-        adapter=new RecyclerQuestionAdapter(listItem,this);
+        adapter=new RecyclerTestAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
 
         //vuốt sang sẽ next 1 sang item tiếp theo
@@ -88,6 +90,25 @@ public class TestActivity extends AppCompatActivity {
 
 
 
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int a=0;
+                for(Items items:listItem)
+                {
+                    if(items.getAnswer().replace(",","").equals(items.getMyAnswer()))
+                        a++;
+                }
+                Toast.makeText(TestActivity.this,"Bạn đúng "+a+" câu",Toast.LENGTH_SHORT).show();
+
+                Intent intent1=new Intent(TestActivity.this,MyAnswerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("list", listItem);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
+            }
+        });
+
     }
 
     private void addControl() {
@@ -96,8 +117,8 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar=getSupportActionBar();
-        //actionBar.show();
         actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
+        btnSubmit= (Button) findViewById(R.id.btnSubmit);
 
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

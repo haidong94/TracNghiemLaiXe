@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.dong.tracnghiemlaixe.R;
 import com.example.dong.tracnghiemlaixe.TestActivity;
@@ -32,13 +33,15 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
    // }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public Button btnExam;
+        public TextView btnExam;
+        public ImageView imageView;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             //itemView.setOnClickListener(this);
-            btnExam= (Button) itemView.findViewById(R.id.btnExam);
-            btnExam.setOnClickListener(this);
+            btnExam= (TextView)itemView.findViewById(R.id.btnExam);
+            imageView= (ImageView) itemView.findViewById(R.id.image);
+            itemView.setOnClickListener(this);
         }
 
 
@@ -70,6 +73,7 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
     @Override
     public void onBindViewHolder(RecyclerExamAdapter.RecyclerViewHolder holder, int position) {
         holder.btnExam.setText("Đề "+list.get(position).toString());
+        holder.imageView.setVisibility(View.GONE);
     }
 
 

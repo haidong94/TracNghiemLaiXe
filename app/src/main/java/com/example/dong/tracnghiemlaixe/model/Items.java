@@ -1,10 +1,13 @@
 package com.example.dong.tracnghiemlaixe.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by DONG on 23-Feb-17.
  */
 
-public class Items {
+public class Items implements Parcelable {
     private int id;
     private String question; //câu hỏi
     private String option1; //lựa chọn 1
@@ -13,8 +16,8 @@ public class Items {
     private String option4;
     private String answer; //đáp án
     private int illustrationId; //hình ảnh
-    private boolean isAnswer;
-
+    private boolean isAnswer;//cái này để check phần ôn thi
+    private String myAnswer;//đáp an của tôi
 
     public Items(int id, String question, String option1, String option2, String option3, String option4, String answer, int illustrationId) {
         this.id = id;
@@ -23,12 +26,18 @@ public class Items {
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
-
         this.answer = answer;
         this.illustrationId = illustrationId;
     }
 
 
+    public String getMyAnswer() {
+        return myAnswer;
+    }
+
+    public void setMyAnswer(String myAnswer) {
+        this.myAnswer = myAnswer;
+    }
     public boolean isAnswer() {
         return isAnswer;
     }
@@ -44,6 +53,7 @@ public class Items {
     public void setOption4(String option4) {
         this.option4 = option4;
     }
+
     public int getId() {
         return id;
     }
@@ -99,4 +109,49 @@ public class Items {
     public void setIllustrationId(int illustrationId) {
         this.illustrationId = illustrationId;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.question);
+        dest.writeString(this.option1);
+        dest.writeString(this.option2);
+        dest.writeString(this.option3);
+        dest.writeString(this.option4);
+        dest.writeString(this.answer);
+        dest.writeInt(this.illustrationId);
+        dest.writeByte(this.isAnswer ? (byte) 1 : (byte) 0);
+        dest.writeString(this.myAnswer);
+    }
+
+    protected Items(Parcel in) {
+        this.id = in.readInt();
+        this.question = in.readString();
+        this.option1 = in.readString();
+        this.option2 = in.readString();
+        this.option3 = in.readString();
+        this.option4 = in.readString();
+        this.answer = in.readString();
+        this.illustrationId = in.readInt();
+        this.isAnswer = in.readByte() != 0;
+        this.myAnswer = in.readString();
+    }
+
+    public static final Parcelable.Creator<Items> CREATOR = new Parcelable.Creator<Items>() {
+        @Override
+        public Items createFromParcel(Parcel source) {
+            return new Items(source);
+        }
+
+        @Override
+        public Items[] newArray(int size) {
+            return new Items[size];
+        }
+    };
 }

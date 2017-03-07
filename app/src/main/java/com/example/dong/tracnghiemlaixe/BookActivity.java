@@ -130,29 +130,4 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
-//
-//    //inflate menu
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    // Bắt sự kiện cho các item Menu
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        switch (item.getItemId()) {
-//            case R.id.mnSetting:
-//                Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.mnNotification:
-//                Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
-//                break;
-//            case android.R.id.home:
-//                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }
