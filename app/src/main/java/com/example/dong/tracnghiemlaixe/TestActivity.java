@@ -3,6 +3,7 @@ package com.example.dong.tracnghiemlaixe;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dong.tracnghiemlaixe.adapter.RecyclerTestAdapter;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by DONG on 28-Feb-17.
@@ -37,15 +41,23 @@ public class TestActivity extends AppCompatActivity {
     public ArrayList<Items> listItem=null;
     Toolbar toolbar;
     Button btnSubmit;
+    RelativeLayout relativeLayout;
+    TextView minute,second;
+    private static final String FORMAT = "%02d:%02d";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_recycler_layout);
 
-
         addControl();
         addEvents();
+
+
+
+
+
+
     }
 
     private void addEvents() {
@@ -109,12 +121,39 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
+
+        new CountDownTimer(1200000, 1000) { // adjust the milli seconds here
+
+            public void onTick(long millisUntilFinished) {
+
+                second.setText(""+String.format(FORMAT,
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            public void onFinish() {
+                Intent intent1=new Intent(TestActivity.this,MyAnswerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("list", listItem);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
+            }
+        }.start();
+
     }
 
     private void addControl() {
 
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        relativeLayout= (RelativeLayout) findViewById(R.id.rltLayout);
+        relativeLayout.setVisibility(View.VISIBLE);
+        minute= (TextView) findViewById(R.id.minute);
+        second= (TextView) findViewById(R.id.second);
+
 
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
@@ -149,4 +188,5 @@ public class TestActivity extends AppCompatActivity {
             return false;
         }
     }
+
 }
