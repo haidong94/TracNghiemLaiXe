@@ -55,7 +55,7 @@
 
         <activity
             android:name=".MyAnswerActivity"
-            android:label="MyAnswer"
+            android:label="Đáp Án"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".TestActivity">
             <meta-data

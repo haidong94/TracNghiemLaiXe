@@ -1,6 +1,7 @@
 package com.example.dong.tracnghiemlaixe;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -48,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,ExamActivity.class);
+                startActivity(intent);
+            }
+        });
+        trGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setPackage("com.google.android.youtube");
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=PXwVbtxh8P4"));
                 startActivity(intent);
             }
         });
