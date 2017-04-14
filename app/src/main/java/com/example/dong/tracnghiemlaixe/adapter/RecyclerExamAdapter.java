@@ -28,10 +28,6 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
         this.context = context;
     }
 
-  //  public Integer getItem(int position){
-  //      return list.get(position);
-   // }
-
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView btnExam;
         public ImageView imageView;
@@ -43,17 +39,12 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
             imageView= (ImageView) itemView.findViewById(R.id.image);
             itemView.setOnClickListener(this);
         }
-
-
         @Override
         public void onClick(View v) {
             int id=list.get(getPosition()).intValue();
             Intent intent=new Intent(v.getContext(), TestActivity.class);
             intent.putExtra("exam",id);
             v.getContext().startActivity(intent);
-
-
-
         }
     }
 
@@ -64,17 +55,13 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
 
     @Override
     public RecyclerExamAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View itemView =inflater.inflate(R.layout.custom_exam_layout,parent,false);
         return new RecyclerExamAdapter.RecyclerViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(RecyclerExamAdapter.RecyclerViewHolder holder, int position) {
         holder.btnExam.setText("Đề "+list.get(position).toString());
         holder.imageView.setVisibility(View.GONE);
     }
-
-
 }

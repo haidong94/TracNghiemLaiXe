@@ -12,13 +12,10 @@ import android.widget.ViewFlipper;
 public class MainActivity extends AppCompatActivity {
     TableRow trBook,trTest,trGuide;
     ViewFlipper viewFlipper;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         addControl();
         addEvent();
     }
@@ -28,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.out_from_left));
         viewFlipper.setAutoStart(true);
         viewFlipper.setFlipInterval(4000);
-
     }
 
     private void addControl() {
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,BookActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right,R.anim.out_from_left);
+                overridePendingTransition(R.anim.from_right,R.anim.from_left);
             }
         });
         trTest.setOnClickListener(new View.OnClickListener() {

@@ -27,12 +27,8 @@ import static android.os.Build.VERSION_CODES.M;
  */
 
 public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuestionAdapter.RecyclerViewHolder> {
-
     private List<Items> itemsList;
     private Context context;
-
-
-
 
     public RecyclerQuestionAdapter(List<Items> itemsList, Context context) {
         this.itemsList = itemsList;
@@ -45,12 +41,9 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
         public ImageView image;
         public Button btnAnswer;
 
-
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             //itemView.setOnClickListener(this);
-
-
             txtQuestion = (TextView) itemView.findViewById(R.id.txtQuestion);
             ckbOption1 = (CheckBox) itemView.findViewById(R.id.ckbOption1);
             ckbOption2 = (CheckBox) itemView.findViewById(R.id.ckbOption2);
@@ -58,7 +51,6 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
             ckbOption4 = (CheckBox) itemView.findViewById(R.id.ckbOption4);
             image = (ImageView) itemView.findViewById(R.id.image);
             btnAnswer = (Button) itemView.findViewById(R.id.btnAnswer);
-
             btnAnswer.setOnClickListener(this);
         }
 
@@ -131,7 +123,6 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
                 }
             }
         } else {
-
             holder.ckbOption4.setChecked(false);
             holder.ckbOption4.setButtonDrawable(ta.getDrawable(0));
             holder.ckbOption3.setChecked(false);
@@ -140,9 +131,7 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
             holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
             holder.ckbOption1.setChecked(false);
             holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
-
         }
-
 
         if (itemsList.get(position).getIllustrationId() == 0)
             holder.image.setVisibility(View.GONE);
@@ -153,22 +142,16 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
                     .into(holder.image);
         }
 
-
         if (itemsList.get(position).getOption3() != null) {
             holder.ckbOption3.setVisibility(View.VISIBLE);
             holder.ckbOption3.setText("" + itemsList.get(position).getOption3());
         } else
             holder.ckbOption3.setVisibility(View.INVISIBLE);
 
-
         if (itemsList.get(position).getOption4() != null) {
             holder.ckbOption4.setVisibility(View.VISIBLE);
             holder.ckbOption4.setText("" + itemsList.get(position).getOption4());
         } else
             holder.ckbOption4.setVisibility(View.INVISIBLE);
-
-
     }
-
-
 }

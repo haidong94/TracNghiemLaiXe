@@ -41,9 +41,6 @@ public class BookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_recycler_layout);
-
-
-
         addControl();
         addEvents();
     }
@@ -54,7 +51,6 @@ public class BookActivity extends AppCompatActivity {
         File database=getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
         if(false==database.exists()){
             mDBHelper.getReadableDatabase();
-
             if(copyDatabase(this)){
                 Toast.makeText(this,"Copied",Toast.LENGTH_SHORT).show();
             }
@@ -83,10 +79,6 @@ public class BookActivity extends AppCompatActivity {
         };
 
         snapHelper.attachToRecyclerView(recyclerView);
-
-
-
-
     }
 
     private void addControl() {
@@ -94,19 +86,15 @@ public class BookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar=getSupportActionBar();
-        //actionBar.show();
         actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
-        //actionBar.setIcon(R.drawable.book1);
 
         btnSubmit= (Button) findViewById(R.id.btnSubmit);
         btnSubmit.setVisibility(View.INVISIBLE);
-
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         lLayout=new LinearLayoutManager(this);
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
-
     }
 
     private boolean copyDatabase(Context context){

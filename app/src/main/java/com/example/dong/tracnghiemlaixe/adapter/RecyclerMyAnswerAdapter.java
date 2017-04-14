@@ -1,7 +1,10 @@
 package com.example.dong.tracnghiemlaixe.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dong.tracnghiemlaixe.AnswerActivity;
 import com.example.dong.tracnghiemlaixe.R;
 import com.example.dong.tracnghiemlaixe.model.Items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +25,6 @@ import java.util.List;
  */
 
 public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnswerAdapter.RecyclerViewHolder> {
-
     private List<Items> list;
     private Context context;
 
@@ -28,10 +32,6 @@ public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnsw
         this.list = list;
         this.context = context;
     }
-
-    //  public Integer getItem(int position){
-    //      return list.get(position);
-    // }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView btnExam;
@@ -46,16 +46,15 @@ public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnsw
             itemView.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View v) {
-//            int id=list.get(getPosition()).intValue();
-//            Intent intent=new Intent(v.getContext(), TestActivity.class);
-//            intent.putExtra("exam",id);
-//            v.getContext().startActivity(intent);
-
-
-
+            int question=list.indexOf(list.get(getPosition()))+1;
+            Intent intent=new Intent(v.getContext(), AnswerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+            intent.putExtras(bundle);
+            intent.putExtra("question",question);
+            v.getContext().startActivity(intent);
         }
     }
 
@@ -66,7 +65,6 @@ public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnsw
 
     @Override
     public RecyclerMyAnswerAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View itemView =inflater.inflate(R.layout.custom_exam_layout,parent,false);
         return new RecyclerMyAnswerAdapter.RecyclerViewHolder(itemView);
@@ -82,6 +80,5 @@ public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnsw
         else
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.delete));
     }
-
 
 }

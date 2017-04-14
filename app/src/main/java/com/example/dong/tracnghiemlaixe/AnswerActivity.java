@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,26 +21,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.dong.tracnghiemlaixe.adapter.RecyclerTestAdapter;
+import com.example.dong.tracnghiemlaixe.adapter.RecyclerAnswerAdapter;
 import com.example.dong.tracnghiemlaixe.database.DatabaseHelper;
 import com.example.dong.tracnghiemlaixe.model.Items;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
- * Created by DONG on 28-Feb-17.
+ * Created by DONG on 14-Apr-17.
  */
 
-public class TestActivity extends AppCompatActivity {
+public class AnswerActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerTestAdapter adapter;
+    private RecyclerAnswerAdapter adapter;
     private LinearLayoutManager lLayout;
     private DatabaseHelper mDBHelper;
     public ArrayList<Items> listItem=null;
@@ -50,7 +46,6 @@ public class TestActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     TextView minute,second;
     ImageView imgNextPage;
-    private static final String FORMAT = "%02d:%02d";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +57,7 @@ public class TestActivity extends AppCompatActivity {
 
     private void addEvents() {
         final Intent intent=getIntent();
-        int id=intent.getIntExtra("exam",10);
-
+        int question=intent.getIntExtra("question",0);
         mDBHelper=new DatabaseHelper(this);
         File database=getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
         if(false==database.exists()){
@@ -75,69 +69,23 @@ public class TestActivity extends AppCompatActivity {
                 Toast.makeText(this,"error",Toast.LENGTH_LONG).show();
         }
 
-        listItem= mDBHelper.getList20Items(id);
-        adapter=new RecyclerTestAdapter(listItem,this);
+        Bundle bundle = getIntent().getExtras();
+        listItem = bundle.getParcelableArrayList("list");
+        adapter=new RecyclerAnswerAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder b=new AlertDialog.Builder(TestActivity.this);
-                b.setTitle("Question");
-                b.setMessage("Are you sure you want to submit the exam?")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                int a=0;
-                                for(Items items:listItem)
-                                {
-                                    if(items.getAnswer().replace(",","").equals(items.getMyAnswer()))
-                                        a++;
-                                }
-                                Toast.makeText(TestActivity.this,"Bạn đúng "+a+" câu",Toast.LENGTH_SHORT).show();
-                                Intent intent1=new Intent(TestActivity.this,MyAnswerActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelableArrayList("list", listItem);
-                                intent1.putExtras(bundle);
-                                startActivity(intent1);
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-        });
+        recyclerView.scrollToPosition(question-1);
 
-
-        new CountDownTimer(1200000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                second.setText(""+String.format(FORMAT,
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-            }
-
-            public void onFinish() {
-                Intent intent1=new Intent(TestActivity.this,MyAnswerActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("list", listItem);
-                intent1.putExtras(bundle);
-                startActivity(intent1);
-            }
-        }.start();
+        second.setVisibility(View.INVISIBLE);
+        btnSubmit.setVisibility(View.GONE);
 
         imgNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(TestActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerActivity.this);
                 alertDialog.setTitle("Pager");
                 alertDialog.setMessage("Enter Pager");
 
-                final EditText input = new EditText(TestActivity.this);
+                final EditText input = new EditText(AnswerActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -150,7 +98,7 @@ public class TestActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 int page = Integer.parseInt(input.getText().toString());
                                 if (page>listItem.size()) {
-                                    Toast.makeText(TestActivity.this, "Không có câu này!!!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AnswerActivity.this, "Không có câu này!!!", Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                     recyclerView.scrollToPosition(page-1);
@@ -168,6 +116,7 @@ public class TestActivity extends AppCompatActivity {
 
             }
         });
+
         //vuốt sang sẽ next 1 sang item tiếp theo
         LinearSnapHelper snapHelper = new LinearSnapHelper() {
             @Override
@@ -200,6 +149,7 @@ public class TestActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         relativeLayout= (RelativeLayout) findViewById(R.id.rltLayout);
         relativeLayout.setVisibility(View.VISIBLE);
         minute= (TextView) findViewById(R.id.minute);
@@ -216,8 +166,6 @@ public class TestActivity extends AppCompatActivity {
 
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
-
-
     }
 
     private boolean copyDatabase(Context context){
@@ -239,5 +187,4 @@ public class TestActivity extends AppCompatActivity {
             return false;
         }
     }
-
 }

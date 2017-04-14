@@ -23,6 +23,16 @@
                             android:layout_height="match_parent"
                             android:visibility="gone">
 
+
+
+                                <ImageView
+                                    android:id="@+id/imgNextPage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_nextpage"
+                                    android:layout_toLeftOf="@+id/second"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_centerVertical="true"/>
                                 <TextView
                                     android:layout_alignParentRight="true"
                                     android:id="@+id/second"
@@ -33,6 +43,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"/>
                         </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/txtCore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="20dp"
+                            android:visibility="gone"/>
 
                 </android.support.v7.widget.Toolbar>
 

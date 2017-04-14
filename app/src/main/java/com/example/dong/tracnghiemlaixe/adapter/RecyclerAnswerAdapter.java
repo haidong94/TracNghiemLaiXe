@@ -2,11 +2,11 @@ package com.example.dong.tracnghiemlaixe.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +25,14 @@ import java.util.List;
 import static android.os.Build.VERSION_CODES.M;
 
 /**
- * Created by DONG on 05-Mar-17.
+ * Created by DONG on 14-Apr-17.
  */
 
-public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapter.RecyclerViewHolder> {
+public class RecyclerAnswerAdapter extends RecyclerView.Adapter<RecyclerAnswerAdapter.RecyclerViewHolder> {
     private List<Items> itemsList;
     private Context context;
 
-    public RecyclerTestAdapter(List<Items> itemsList, Context context) {
+    public RecyclerAnswerAdapter(List<Items> itemsList, Context context) {
         this.itemsList = itemsList;
         this.context = context;
     }
@@ -50,6 +50,7 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
         Arrays.sort(ch);//sắp xếp
         myAnswer =String.copyValueOf(ch);//chuyển chuỗi kí tự thành string
         items.setMyAnswer(myAnswer);
+
         notifyDataSetChanged();
     }
 
@@ -58,7 +59,6 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
         public TextView txtQuestion;
         public ImageView image;
         public Button btnAnswer;
-
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -75,26 +75,33 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
                 @Override
                 public void onClick(View v) {
                     setAnswerUser(itemsList.get(getPosition()), "1");
+
                 }
             });
+
             ckbOption2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setAnswerUser(itemsList.get(getPosition()), "2");
                 }
             });
+
             ckbOption3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setAnswerUser(itemsList.get(getPosition()), "3");
+
                 }
             });
+
             ckbOption4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setAnswerUser(itemsList.get(getPosition()), "4");
                 }
             });
+
+
         }
     }
 
@@ -104,16 +111,17 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
     }
 
     @Override
-    public RecyclerTestAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerAnswerAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.custom_question_layout, parent, false);
-        return new RecyclerTestAdapter.RecyclerViewHolder(itemView);
+        View itemView = inflater.inflate(R.layout.custom_answer_layout, parent, false);
+        return new RecyclerAnswerAdapter.RecyclerViewHolder(itemView);
     }
 
     @RequiresApi(api = M)
     @Override
-    public void onBindViewHolder(RecyclerTestAdapter.RecyclerViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerAnswerAdapter.RecyclerViewHolder holder, final int position) {
         int a=itemsList.indexOf(itemsList.get(position))+1;
+
         holder.txtQuestion.setText("  \u25BA Câu " + a + ": " + itemsList.get(position).getQuestion());
         holder.ckbOption1.setText("" + itemsList.get(position).getOption1());
         holder.ckbOption2.setText("" + itemsList.get(position).getOption2());
@@ -134,15 +142,14 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
             for (int i = 0; i <item.getMyAnswer().length() ; i++) {
                 switch (item.getMyAnswer().charAt(i)) {
                     case '1':
-                        Log.e("-", 1+"");
                         holder.ckbOption1.setChecked(true);
                         holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
                         break;
                     case '2':
-                        Log.e("-", 2+"");
                         holder.ckbOption2.setChecked(true);
                         holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
                         break;
+
                     case '3':
                         holder.ckbOption3.setChecked(true);
                         holder.ckbOption3.setButtonDrawable(ta.getDrawable(0));
@@ -177,17 +184,45 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
         if (itemsList.get(position).getOption3() != null) {
             holder.ckbOption3.setVisibility(View.VISIBLE);
             holder.ckbOption3.setText("" + itemsList.get(position).getOption3());
-
-
         } else
             holder.ckbOption3.setVisibility(View.INVISIBLE);
-
 
         if (itemsList.get(position).getOption4() != null) {
             holder.ckbOption4.setVisibility(View.VISIBLE);
             holder.ckbOption4.setText("" + itemsList.get(position).getOption4());
-
         } else
             holder.ckbOption4.setVisibility(View.INVISIBLE);
+
+
+        holder.ckbOption1.setClickable(false);
+        holder.ckbOption2.setClickable(false);
+        holder.ckbOption3.setClickable(false);
+        holder.ckbOption4.setClickable(false);
+
+        holder.ckbOption1.setTextColor(context.getResources().getColor(R.color.colorGreen));
+        holder.ckbOption2.setTextColor(context.getResources().getColor(R.color.colorGreen));
+        holder.ckbOption3.setTextColor(context.getResources().getColor(R.color.colorGreen));
+        holder.ckbOption4.setTextColor(context.getResources().getColor(R.color.colorGreen));
+        for (int i = 0; i <item.getAnswer().length() ; i++) {
+            switch (item.getAnswer().charAt(i)) {
+                case '1':
+                    holder.ckbOption1.setTextColor(Color.BLUE);
+                    break;
+                case '2':
+                    holder.ckbOption2.setTextColor(Color.BLUE);
+                    break;
+
+                case '3':
+                    holder.ckbOption3.setTextColor(Color.BLUE);
+                    break;
+
+                case '4':
+                    holder.ckbOption4.setTextColor(Color.BLUE);
+                    break;
+            }
+        }
     }
+
+
+
 }

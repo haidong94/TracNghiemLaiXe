@@ -64,6 +64,16 @@
 
         </activity>
 
+        <activity android:name=".AnswerActivity"
+            android:label="Answer"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ExamActivity">
+            <!--dùng cho phiên bản android thấp hơn 4.0-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
     </application>
 
 </manifest>
