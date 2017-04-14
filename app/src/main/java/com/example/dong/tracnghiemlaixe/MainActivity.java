@@ -10,7 +10,7 @@ import android.widget.TableRow;
 import android.widget.ViewFlipper;
 
 public class MainActivity extends AppCompatActivity {
-    TableRow trBook,trTest,trGuide;
+    TableRow trBook,trTest,trGuide,trSuggest;
     ViewFlipper viewFlipper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         trBook= (TableRow) findViewById(R.id.trBook);
         trTest= (TableRow) findViewById(R.id.trTest);
         trGuide= (TableRow) findViewById(R.id.trGuide);
+        trSuggest= (TableRow) findViewById(R.id.trSuggest);
 
         trBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(Intent.ACTION_VIEW);
                 intent.setPackage("com.google.android.youtube");
                 intent.setData(Uri.parse("https://www.youtube.com/watch?v=PXwVbtxh8P4"));
+                startActivity(intent);
+            }
+        });
+        trSuggest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,SuggestActivity.class);
                 startActivity(intent);
             }
         });

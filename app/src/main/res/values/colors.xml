@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorDarkGreen">#006800</color>
     <color name="colorGreen">#3D8941</color>
+    <color name="black">#000000</color>
+    <color name="red">#b3ff0000</color>
+    <color name="rippelColor">#FFFFFF</color>
 
 
 

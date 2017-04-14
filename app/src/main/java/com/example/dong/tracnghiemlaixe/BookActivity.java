@@ -1,16 +1,24 @@
 package com.example.dong.tracnghiemlaixe;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dong.tracnghiemlaixe.adapter.RecyclerQuestionAdapter;
@@ -36,6 +44,9 @@ public class BookActivity extends AppCompatActivity {
     public ArrayList<Items> listItem=null;
     private Toolbar toolbar;
     private Button btnSubmit;
+    RelativeLayout relativeLayout;
+    ImageView imgNextPage;
+    TextView second;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +71,46 @@ public class BookActivity extends AppCompatActivity {
         listItem= mDBHelper.getListItems();
         adapter=new RecyclerQuestionAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
+
+        second.setVisibility(View.INVISIBLE);
+        imgNextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BookActivity.this);
+                alertDialog.setTitle("Pager");
+                alertDialog.setMessage("Enter Pager");
+
+                final EditText input = new EditText(BookActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+                alertDialog.setIcon(R.drawable.ic_nextpage);
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                int page = Integer.parseInt(input.getText().toString());
+                                if (page>listItem.size()) {
+                                    Toast.makeText(BookActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                    recyclerView.scrollToPosition(page-1);
+                            }
+                        });
+
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.show();
+
+            }
+        });
 
         //vuốt sang sẽ next 1 sang item tiếp theo
         LinearSnapHelper snapHelper = new LinearSnapHelper() {
@@ -88,6 +139,11 @@ public class BookActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);//mũi tên quay về
 
+        relativeLayout= (RelativeLayout) findViewById(R.id.rltLayout);
+        relativeLayout.setVisibility(View.VISIBLE);
+
+        imgNextPage= (ImageView) findViewById(R.id.imgNextPage);
+        second= (TextView) findViewById(R.id.second);
         btnSubmit= (Button) findViewById(R.id.btnSubmit);
         btnSubmit.setVisibility(View.INVISIBLE);
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);

@@ -44,7 +44,7 @@ public class AnswerActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnSubmit;
     RelativeLayout relativeLayout;
-    TextView minute,second;
+    TextView second;
     ImageView imgNextPage;
 
     @Override
@@ -82,8 +82,8 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerActivity.this);
-                alertDialog.setTitle("Pager");
-                alertDialog.setMessage("Enter Pager");
+                alertDialog.setTitle(getResources().getString(R.string.titletDialog));
+                alertDialog.setMessage(getResources().getString(R.string.mesageDialog));
 
                 final EditText input = new EditText(AnswerActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -98,7 +98,7 @@ public class AnswerActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 int page = Integer.parseInt(input.getText().toString());
                                 if (page>listItem.size()) {
-                                    Toast.makeText(AnswerActivity.this, "Không có câu này!!!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AnswerActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                     recyclerView.scrollToPosition(page-1);
@@ -152,7 +152,6 @@ public class AnswerActivity extends AppCompatActivity {
 
         relativeLayout= (RelativeLayout) findViewById(R.id.rltLayout);
         relativeLayout.setVisibility(View.VISIBLE);
-        minute= (TextView) findViewById(R.id.minute);
         second= (TextView) findViewById(R.id.second);
         imgNextPage= (ImageView) findViewById(R.id.imgNextPage);
 

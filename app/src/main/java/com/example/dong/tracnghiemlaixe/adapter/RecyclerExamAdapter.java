@@ -2,6 +2,7 @@ package com.example.dong.tracnghiemlaixe.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.dong.tracnghiemlaixe.R;
 import com.example.dong.tracnghiemlaixe.TestActivity;
+import com.example.dong.tracnghiemlaixe.common.RippleView;
 
 import java.util.List;
 
@@ -31,20 +33,27 @@ public class RecyclerExamAdapter extends RecyclerView.Adapter<RecyclerExamAdapte
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView btnExam;
         public ImageView imageView;
+        public RippleView rippleView;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             //itemView.setOnClickListener(this);
             btnExam= (TextView)itemView.findViewById(R.id.btnExam);
             imageView= (ImageView) itemView.findViewById(R.id.image);
-            itemView.setOnClickListener(this);
+            rippleView= (RippleView) itemView.findViewById(R.id.more);
+            rippleView.setOnClickListener(this);
         }
         @Override
-        public void onClick(View v) {
-            int id=list.get(getPosition()).intValue();
-            Intent intent=new Intent(v.getContext(), TestActivity.class);
-            intent.putExtra("exam",id);
-            v.getContext().startActivity(intent);
+        public void onClick(final View v) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int id=list.get(getPosition()).intValue();
+                    Intent intent=new Intent(v.getContext(), TestActivity.class);
+                    intent.putExtra("exam",id);
+                    v.getContext().startActivity(intent);
+                }
+            },200);
         }
     }
 

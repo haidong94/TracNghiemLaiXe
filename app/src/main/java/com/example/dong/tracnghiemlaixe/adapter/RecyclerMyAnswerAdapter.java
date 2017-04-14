@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.dong.tracnghiemlaixe.AnswerActivity;
 import com.example.dong.tracnghiemlaixe.R;
+import com.example.dong.tracnghiemlaixe.common.RippleView;
 import com.example.dong.tracnghiemlaixe.model.Items;
 
 import java.util.ArrayList;
@@ -36,25 +38,34 @@ public class RecyclerMyAnswerAdapter extends RecyclerView.Adapter<RecyclerMyAnsw
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView btnExam;
         public ImageView imageView;
+        RippleView rippleView;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             //itemView.setOnClickListener(this);
             btnExam= (TextView) itemView.findViewById(R.id.btnExam);
             imageView= (ImageView) itemView.findViewById(R.id.image);
+            rippleView= (RippleView) itemView.findViewById(R.id.more);
 
-            itemView.setOnClickListener(this);
+            rippleView.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
-            int question=list.indexOf(list.get(getPosition()))+1;
-            Intent intent=new Intent(v.getContext(), AnswerActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
-            intent.putExtras(bundle);
-            intent.putExtra("question",question);
-            v.getContext().startActivity(intent);
+        public void onClick(final View v) {
+
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    int question=list.indexOf(list.get(getPosition()))+1;
+                    Intent intent=new Intent(v.getContext(), AnswerActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) list);
+                    intent.putExtras(bundle);
+                    intent.putExtra("question",question);
+                    v.getContext().startActivity(intent);
+                }
+            },200);
         }
     }
 

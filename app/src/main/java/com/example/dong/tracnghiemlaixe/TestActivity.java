@@ -150,7 +150,7 @@ public class TestActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 int page = Integer.parseInt(input.getText().toString());
                                 if (page>listItem.size()) {
-                                    Toast.makeText(TestActivity.this, "Không có câu này!!!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(TestActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                     recyclerView.scrollToPosition(page-1);
