@@ -16,8 +16,8 @@
     <string name="suggest5a">Chấp hành theo hiệu lệnh của người điều khiển giao thông -  câu 38  \n• Người điều khiển giao thông: Là CSGT và người được giao nhiệm vụ hướng dẫn giao thông -  câu 13</string>
     <string name="suggest6">6.Quy định nhường đường tại nơi giao nhau:</string>
     <string name="suggest6a">•CÓ vòng xuyến: nhường bênTRÁI - câu 49  \n•KHÔNG CÓ vòng xuyến: nhường bên tay PHẢI - câu 51 \n•Xe đi trên đường nhánh phải nhường đường cho tất cả  - câu 50 \n•Phương tiện giao thông đường sắt được ưu tiên hoàn toàn so với đường bộ - câu 52 \n•Đường ưu tiên là đường \"được nhường\"  - câu 8 \n Ngoài ra, đối với các câu 31,42,43,45,46,54,60 và 63,67 - có 03 đáp án trong đó đáp án ngắn nhất sai - chọn 2 đáp án còn lại</string>
-    <string name="titletDialog">\"Pager\"</string>
-    <string name="mesageDialog">\"Enter Pager\"</string>
+    <string name="titletDialog">Question</string>
+    <string name="mesageDialog">\"Enter Question\"</string>
     <string name="noResuilt">Không có câu này!!!</string>
 
 </resources>

@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.dong.tracnghiemlaixe.R;
 import com.example.dong.tracnghiemlaixe.model.Items;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
@@ -33,6 +36,22 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
     public RecyclerQuestionAdapter(List<Items> itemsList, Context context) {
         this.itemsList = itemsList;
         this.context = context;
+    }
+
+    private void setAnswerUser(Items items, String answerUser) {
+        String myAnswer = items.getMyAnswer();
+        if(myAnswer==null)
+            myAnswer="";
+        if (myAnswer.contains(answerUser)) {
+            myAnswer = myAnswer.replace(answerUser, "");
+        } else {
+            myAnswer = myAnswer.concat(answerUser);
+        }
+        char ch[]= myAnswer.toCharArray();//tách về kí tự
+        Arrays.sort(ch);//sắp xếp
+        myAnswer =String.copyValueOf(ch);//chuyển chuỗi kí tự thành string
+        items.setMyAnswer(myAnswer);
+        notifyDataSetChanged();
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -52,6 +71,31 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
             image = (ImageView) itemView.findViewById(R.id.image);
             btnAnswer = (Button) itemView.findViewById(R.id.btnAnswer);
             btnAnswer.setOnClickListener(this);
+
+            ckbOption1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAnswerUser(itemsList.get(getPosition()), "1");
+                }
+            });
+            ckbOption2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAnswerUser(itemsList.get(getPosition()), "2");
+                }
+            });
+            ckbOption3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAnswerUser(itemsList.get(getPosition()), "3");
+                }
+            });
+            ckbOption4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAnswerUser(itemsList.get(getPosition()), "4");
+                }
+            });
         }
 
         @Override
@@ -123,14 +167,49 @@ public class RecyclerQuestionAdapter extends RecyclerView.Adapter<RecyclerQuesti
                 }
             }
         } else {
-            holder.ckbOption4.setChecked(false);
-            holder.ckbOption4.setButtonDrawable(ta.getDrawable(0));
-            holder.ckbOption3.setChecked(false);
-            holder.ckbOption3.setButtonDrawable(ta.getDrawable(0));
-            holder.ckbOption2.setChecked(false);
-            holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
-            holder.ckbOption1.setChecked(false);
-            holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
+            if (!TextUtils.isEmpty(item.getMyAnswer())) {
+                holder.ckbOption1.setChecked(false);
+                holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption4.setChecked(false);
+                holder.ckbOption4.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption3.setChecked(false);
+                holder.ckbOption3.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption2.setChecked(false);
+                holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
+
+                for (int i = 0; i <item.getMyAnswer().length() ; i++) {
+                    switch (item.getMyAnswer().charAt(i)) {
+                        case '1':
+                            Log.e("-", 1+"");
+                            holder.ckbOption1.setChecked(true);
+                            holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
+                            break;
+                        case '2':
+                            Log.e("-", 2+"");
+                            holder.ckbOption2.setChecked(true);
+                            holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
+                            break;
+                        case '3':
+                            holder.ckbOption3.setChecked(true);
+                            holder.ckbOption3.setButtonDrawable(ta.getDrawable(0));
+                            break;
+
+                        case '4':
+                            holder.ckbOption4.setChecked(true);
+                            holder.ckbOption4.setButtonDrawable(ta.getDrawable(0));
+                            break;
+                    }
+                }
+            } else {
+                holder.ckbOption4.setChecked(false);
+                holder.ckbOption4.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption3.setChecked(false);
+                holder.ckbOption3.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption2.setChecked(false);
+                holder.ckbOption2.setButtonDrawable(ta.getDrawable(0));
+                holder.ckbOption1.setChecked(false);
+                holder.ckbOption1.setButtonDrawable(ta.getDrawable(0));
+            }
         }
 
         if (itemsList.get(position).getIllustrationId() == 0)

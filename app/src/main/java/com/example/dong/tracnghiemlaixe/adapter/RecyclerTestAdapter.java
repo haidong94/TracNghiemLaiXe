@@ -177,16 +177,12 @@ public class RecyclerTestAdapter extends RecyclerView.Adapter<RecyclerTestAdapte
         if (itemsList.get(position).getOption3() != null) {
             holder.ckbOption3.setVisibility(View.VISIBLE);
             holder.ckbOption3.setText("" + itemsList.get(position).getOption3());
-
-
         } else
             holder.ckbOption3.setVisibility(View.INVISIBLE);
-
 
         if (itemsList.get(position).getOption4() != null) {
             holder.ckbOption4.setVisibility(View.VISIBLE);
             holder.ckbOption4.setText("" + itemsList.get(position).getOption4());
-
         } else
             holder.ckbOption4.setVisibility(View.INVISIBLE);
     }

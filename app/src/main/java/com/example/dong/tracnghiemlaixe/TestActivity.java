@@ -134,8 +134,8 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(TestActivity.this);
-                alertDialog.setTitle("Pager");
-                alertDialog.setMessage("Enter Pager");
+                alertDialog.setTitle(getResources().getString(R.string.titletDialog));
+                alertDialog.setMessage(getResources().getString(R.string.mesageDialog));
 
                 final EditText input = new EditText(TestActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -213,7 +213,6 @@ public class TestActivity extends AppCompatActivity {
         recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         lLayout=new LinearLayoutManager(this);
-
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
 

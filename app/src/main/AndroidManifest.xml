@@ -23,6 +23,7 @@
            android:name=".BookActivity"
            android:label="Book"
            android:theme="@style/AppTheme.NoActionBar"
+           android:configChanges="orientation|screenSize|keyboardHidden"
            android:parentActivityName=".MainActivity">
            <!--dùng cho phiên bản android thấp hơn 4.0-->
            <meta-data
@@ -44,6 +45,7 @@
         <activity
             android:name=".TestActivity"
             android:label="Test"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".ExamActivity">
             <!--dùng cho phiên bản android thấp hơn 4.0-->
