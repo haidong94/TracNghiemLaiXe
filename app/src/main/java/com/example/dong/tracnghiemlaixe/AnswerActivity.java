@@ -21,9 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.dong.tracnghiemlaixe.adapter.RecyclerAnswerAdapter;
 import com.example.dong.tracnghiemlaixe.database.DatabaseHelper;
 import com.example.dong.tracnghiemlaixe.model.Items;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,7 +46,7 @@ public class AnswerActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnSubmit;
     RelativeLayout relativeLayout;
-    TextView second;
+    TextView second,txtTitle;
     ImageView imgNextPage;
 
     @Override
@@ -87,6 +89,7 @@ public class AnswerActivity extends AppCompatActivity {
 
                 final EditText input = new EditText(AnswerActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setHint(getResources().getString(R.string.mesageDialog));
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
@@ -96,12 +99,13 @@ public class AnswerActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                int page = Integer.parseInt(input.getText().toString());
-                                if (page>listItem.size()) {
-                                    Toast.makeText(AnswerActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                if (!input.getText().toString().isEmpty()) {
+                                    int page = Integer.parseInt(input.getText().toString());
+                                    if (page > listItem.size()) {
+                                        Toast.makeText(AnswerActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                    } else
+                                        recyclerView.scrollToPosition(page - 1);
                                 }
-                                else
-                                    recyclerView.scrollToPosition(page-1);
                             }
                         });
 
@@ -165,6 +169,9 @@ public class AnswerActivity extends AppCompatActivity {
 
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
+        txtTitle= (TextView) findViewById(R.id.txtTitle);
+        txtTitle.setVisibility(View.VISIBLE);
+        txtTitle.setText(getResources().getString(R.string.test));
     }
 
     private boolean copyDatabase(Context context){

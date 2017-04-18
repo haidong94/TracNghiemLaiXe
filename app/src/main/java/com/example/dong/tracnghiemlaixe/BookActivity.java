@@ -46,7 +46,7 @@ public class BookActivity extends AppCompatActivity {
     private Button btnSubmit;
     RelativeLayout relativeLayout;
     ImageView imgNextPage;
-    TextView second;
+    TextView second,txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +75,13 @@ public class BookActivity extends AppCompatActivity {
         imgNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(BookActivity.this);
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(BookActivity.this);
                 alertDialog.setTitle(getResources().getString(R.string.titletDialog));
-                alertDialog.setMessage(getResources().getString(R.string.mesageDialog));
+               // alertDialog.setMessage();
 
                 final EditText input = new EditText(BookActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setHint(getResources().getString(R.string.mesageDialog));
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
@@ -90,12 +91,13 @@ public class BookActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                int page = Integer.parseInt(input.getText().toString());
-                                if (page>listItem.size()) {
-                                    Toast.makeText(BookActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                if (!input.getText().toString().isEmpty()) {
+                                    int page = Integer.parseInt(input.getText().toString());
+                                    if (page > listItem.size()) {
+                                        Toast.makeText(BookActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                    } else
+                                        recyclerView.scrollToPosition(page - 1);
                                 }
-                                else
-                                    recyclerView.scrollToPosition(page-1);
                             }
                         });
 
@@ -151,6 +153,10 @@ public class BookActivity extends AppCompatActivity {
         lLayout=new LinearLayoutManager(this);
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
+
+        txtTitle= (TextView) findViewById(R.id.txtTitle);
+        txtTitle.setVisibility(View.VISIBLE);
+        txtTitle.setText(getResources().getString(R.string.book));
     }
 
     private boolean copyDatabase(Context context){

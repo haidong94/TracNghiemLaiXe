@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dong.tracnghiemlaixe.adapter.RecyclerMyAnswerAdapter;
@@ -27,7 +28,8 @@ public class MyAnswerActivity extends AppCompatActivity {
     private GridLayoutManager lLayout;
     private Button btnSubmit;
     ArrayList<Items> listItem;
-    TextView txtCore;
+    TextView txtCore,txtResuit;
+    LinearLayout lnResult;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,11 @@ public class MyAnswerActivity extends AppCompatActivity {
         }
         txtCore.setVisibility(View.VISIBLE);
         txtCore.setText(i+"/"+listItem.size());
+
+        if(i>=16)
+            txtResuit.setText(getResources().getString(R.string.pass));
+        else
+            txtResuit.setText(getResources().getString(R.string.fail));
     }
 
     private void addControl() {
@@ -68,5 +75,9 @@ public class MyAnswerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(lLayout);
         adapter=new RecyclerMyAnswerAdapter(listItem,this);
         recyclerView.setAdapter(adapter);
+
+        lnResult= (LinearLayout) findViewById(R.id.lnResult);
+        txtResuit= (TextView) findViewById(R.id.txtResuit);
+        lnResult.setVisibility(View.VISIBLE);
     }
 }

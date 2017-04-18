@@ -48,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnSubmit;
     RelativeLayout relativeLayout;
-    TextView minute,second;
+    TextView minute,second,txtTitle;
     ImageView imgNextPage;
     private static final String FORMAT = "%02d:%02d";
 
@@ -135,10 +135,10 @@ public class TestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(TestActivity.this);
                 alertDialog.setTitle(getResources().getString(R.string.titletDialog));
-                alertDialog.setMessage(getResources().getString(R.string.mesageDialog));
 
                 final EditText input = new EditText(TestActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setHint(getResources().getString(R.string.mesageDialog));
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
@@ -148,12 +148,13 @@ public class TestActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                int page = Integer.parseInt(input.getText().toString());
-                                if (page>listItem.size()) {
-                                    Toast.makeText(TestActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                if (!input.getText().toString().isEmpty()) {
+                                    int page = Integer.parseInt(input.getText().toString());
+                                    if (page > listItem.size()) {
+                                        Toast.makeText(TestActivity.this, getResources().getString(R.string.noResuilt), Toast.LENGTH_SHORT).show();
+                                    } else
+                                        recyclerView.scrollToPosition(page - 1);
                                 }
-                                else
-                                    recyclerView.scrollToPosition(page-1);
                             }
                         });
 
@@ -215,6 +216,10 @@ public class TestActivity extends AppCompatActivity {
         lLayout=new LinearLayoutManager(this);
         lLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(lLayout);
+
+        txtTitle= (TextView) findViewById(R.id.txtTitle);
+        txtTitle.setVisibility(View.VISIBLE);
+        txtTitle.setText(getResources().getString(R.string.test));
 
 
     }

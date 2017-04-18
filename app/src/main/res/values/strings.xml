@@ -2,8 +2,9 @@
     <string name="app_name">TracNghiemLaiXe</string>
     <string name="suggest">\u0020 Hướng dẫn thi lý thuyết</string>
     <string name="pratice"> \u0020 Hướng dẫn thi thực hành</string>
-    <string name="test"> \u0020 Làm bài thi</string>
+    <string name="test"> \u0020 Bài thi</string>
     <string name="book">\u0020 Ôn thi</string>
+    <string name="exam">Đề thi</string>
     <string name="suggest1">1.Câu hỏi về \"hành vi bị nghiêm cấm\" </string>
     <string name="suggest1a"> - Nếu có 02 phương án thì chọn cả (1) và (2) nhưng nếu có trên 02 p/a thì phải đọc kĩ- câu 14,15,22,23,25,29   \n •Vạch – phố - dải – phần: chọn đ/a (1) - câu 2,3,5,6 \n •Ưu – phương – làn: chọn đ/a (2)        - câu 4,8,10 \n •Nếu trong câu hỏi có cụm từ \" tham gia\" mà có 2 p/a thì chọn ngay cả 2 phương án. - câu 11,12</string>
     <string name="suggest2">2.Câu hỏi về hiệu lệnh của CSGT</string>
@@ -17,7 +18,9 @@
     <string name="suggest6">6.Quy định nhường đường tại nơi giao nhau:</string>
     <string name="suggest6a">•CÓ vòng xuyến: nhường bênTRÁI - câu 49  \n•KHÔNG CÓ vòng xuyến: nhường bên tay PHẢI - câu 51 \n•Xe đi trên đường nhánh phải nhường đường cho tất cả  - câu 50 \n•Phương tiện giao thông đường sắt được ưu tiên hoàn toàn so với đường bộ - câu 52 \n•Đường ưu tiên là đường \"được nhường\"  - câu 8 \n Ngoài ra, đối với các câu 31,42,43,45,46,54,60 và 63,67 - có 03 đáp án trong đó đáp án ngắn nhất sai - chọn 2 đáp án còn lại</string>
     <string name="titletDialog">Question</string>
-    <string name="mesageDialog">\"Enter Question\"</string>
+    <string name="mesageDialog">Enter Question</string>
     <string name="noResuilt">Không có câu này!!!</string>
+    <string name="pass">ĐẠT</string>
+    <string name="fail">CHƯA ĐẠT</string>
 
 </resources>
